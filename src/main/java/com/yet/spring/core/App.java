@@ -2,12 +2,13 @@ package com.yet.spring.core;
 
 import com.yet.spring.core.beans.Client;
 import com.yet.spring.core.beans.ConsoleEventLogger;
+import com.yet.spring.core.beans.EventLogger;
 
 public class App {
 
 	private Client client;
 
-	private ConsoleEventLogger eventLogger;
+	private EventLogger eventLogger;
 
 	public static void main(String[] args) {
 		App app = new App();
