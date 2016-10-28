@@ -1,4 +1,4 @@
-package com.yet.spring.core.beans;
+package com.yet.spring.core.loggers;
 
 public interface EventLogger {
 
