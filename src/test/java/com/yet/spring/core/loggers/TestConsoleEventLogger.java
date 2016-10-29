@@ -18,14 +18,17 @@ public class TestConsoleEventLogger {
     private static final String MSG = "Message";
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     
+    private PrintStream stdout;
+    
     @Before
     public void setUpStreams() {
+        stdout = System.out;
         System.setOut(new PrintStream(outContent));
     }
 
     @After
     public void cleanUpStreams() {
-        System.setOut(null);
+        System.setOut(stdout);
     }
 
     @Test
