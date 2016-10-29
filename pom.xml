@@ -10,6 +10,7 @@
 	<properties>
 		<spring.version>3.2.13.RELEASE</spring.version>
 		<junit.version>4.12</junit.version>
+		<commons.io.version>2.4</commons.io.version>
 	</properties>
 
 	<dependencies>
@@ -33,6 +34,12 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+		
+		<dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+        </dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
