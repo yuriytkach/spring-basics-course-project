@@ -4,13 +4,13 @@
 	xsi:schemaLocation="
  		http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
-
+ 		
+    <import resource="loggers.xml"/>
+    
 	<bean id="client" class="com.yet.spring.core.beans.Client">
 		<constructor-arg index="0" value="1" />
 		<constructor-arg value="John Smith" />
 	</bean>
-
-	<bean id="eventLogger" class="com.yet.spring.core.loggers.ConsoleEventLogger" />
 
 	<bean id="app" class="com.yet.spring.core.App">
 		<constructor-arg ref="client" />
@@ -27,15 +27,4 @@
     <bean id="dateFormat" class="java.text.DateFormat"
         factory-method="getDateTimeInstance"/>
     
-    <bean id="fileEventLogger" class="com.yet.spring.core.loggers.FileEventLogger"
-        init-method="init">
-        <constructor-arg value="target/events_log.txt"/>
-    </bean>
-    
-    <bean id="cacheFileEventLogger" class="com.yet.spring.core.loggers.CacheFileEventLogger"
-        destroy-method="destroy">
-        <constructor-arg value="target/events_log.txt"/>
-        <constructor-arg value="5"/>
-    </bean>
-
 </beans>
