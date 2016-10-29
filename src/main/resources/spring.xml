@@ -26,9 +26,9 @@
     </bean>
 
     <bean id="client" class="com.yet.spring.core.beans.Client"
-        p:greeting="${client.greeting}">
-        <constructor-arg index="0" value="${client.id}" />
-        <constructor-arg value="${client.name}" />
+        p:greeting="${greeting}">
+        <constructor-arg index="0" value="${id}" />
+        <constructor-arg value="${name}" />
     </bean>
 
     <util:map id="loggerMap">
