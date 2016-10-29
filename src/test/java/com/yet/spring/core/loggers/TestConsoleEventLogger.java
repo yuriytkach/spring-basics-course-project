@@ -1,4 +1,4 @@
-package com.yet.spring.core;
+package com.yet.spring.core.loggers;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
