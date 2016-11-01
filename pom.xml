@@ -11,6 +11,9 @@
 		<spring.version>3.2.13.RELEASE</spring.version>
 		<junit.version>4.12</junit.version>
 		<commons.io.version>2.4</commons.io.version>
+        
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
@@ -48,6 +51,25 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerVersion>${java.version}</compilerVersion>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <fork>true</fork>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 	<issueManagement>
 		<url>https://github.com/yuriytkach/spring-basics-course-project</url>
