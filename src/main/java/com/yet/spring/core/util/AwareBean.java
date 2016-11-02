@@ -12,47 +12,47 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AwareBean implements ApplicationContextAware, BeanNameAware,
-		ApplicationEventPublisherAware {
+        ApplicationEventPublisherAware {
 
-	private ApplicationEventPublisher eventPublisher;
-	private String name;
-	private ApplicationContext ctx;
+    private ApplicationEventPublisher eventPublisher;
+    private String name;
+    private ApplicationContext ctx;
 
-	@PostConstruct
-	public void init() {
-		System.out.println(this.getClass().getSimpleName() + " > My name is '"
-				+ name + "'");
-		if (ctx != null) {
-			System.out.println(this.getClass().getSimpleName()
-					+ " > My context is " + ctx.getClass().toString());
-		} else {
-			System.out.println(this.getClass().getSimpleName()
-					+ " > Context is not set");
-		}
-		if (eventPublisher != null) {
-			System.out.println(this.getClass().getSimpleName()
-					+ " > My eventPublisher is "
-					+ eventPublisher.getClass().toString());
-		} else {
-			System.out.println(this.getClass().getSimpleName()
-					+ " > EventPublisher is not set");
-		}
-	}
+    @PostConstruct
+    public void init() {
+        System.out.println(this.getClass().getSimpleName() + " > My name is '"
+                + name + "'");
+        if (ctx != null) {
+            System.out.println(this.getClass().getSimpleName()
+                    + " > My context is " + ctx.getClass().toString());
+        } else {
+            System.out.println(
+                    this.getClass().getSimpleName() + " > Context is not set");
+        }
+        if (eventPublisher != null) {
+            System.out.println(
+                    this.getClass().getSimpleName() + " > My eventPublisher is "
+                            + eventPublisher.getClass().toString());
+        } else {
+            System.out.println(this.getClass().getSimpleName()
+                    + " > EventPublisher is not set");
+        }
+    }
 
-	@Override
-	public void setApplicationEventPublisher(ApplicationEventPublisher ep) {
-		this.eventPublisher = ep;
-	}
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher ep) {
+        this.eventPublisher = ep;
+    }
 
-	@Override
-	public void setBeanName(String name) {
-		this.name = name;
-	}
+    @Override
+    public void setBeanName(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public void setApplicationContext(ApplicationContext context)
-			throws BeansException {
-		this.ctx = context;
-	}
+    @Override
+    public void setApplicationContext(ApplicationContext context)
+            throws BeansException {
+        this.ctx = context;
+    }
 
 }

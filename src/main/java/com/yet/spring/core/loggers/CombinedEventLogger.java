@@ -10,8 +10,8 @@ import com.yet.spring.core.beans.Event;
 
 @Component
 public class CombinedEventLogger implements EventLogger {
-    
-    @Resource(name="combinedLoggers")
+
+    @Resource(name = "combinedLoggers")
     private Collection<EventLogger> loggers;
 
     @Override

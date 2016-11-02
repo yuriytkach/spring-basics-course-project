@@ -12,23 +12,23 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class Event {
-    
+
     private static final AtomicInteger AUTO_ID = new AtomicInteger(0);
-    
+
     private int id;
     private String msg;
-    
+
     @Autowired
     @Qualifier("newDate")
     private Date date;
 
     @Autowired
     private DateFormat dateFormat;
-    
+
     public Event() {
         this.id = AUTO_ID.getAndIncrement();
     }
-    
+
     public Event(Date date, DateFormat dateFormat) {
         this();
         this.date = date;
@@ -53,8 +53,8 @@ public class Event {
 
     @Override
     public String toString() {
-        return "Event [id=" + id + ", msg=" + msg + ", date=" + 
-                    (dateFormat != null ? dateFormat.format(date) : date) + "]";
+        return "Event [id=" + id + ", msg=" + msg + ", date="
+                + (dateFormat != null ? dateFormat.format(date) : date) + "]";
     }
 
 }

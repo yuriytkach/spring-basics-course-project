@@ -14,7 +14,7 @@ import com.yet.spring.core.beans.Client;
 @Configuration
 @PropertySource("classpath:client.properties")
 public class AppConfig {
-    
+
     @Autowired
     private Environment environment;
 
