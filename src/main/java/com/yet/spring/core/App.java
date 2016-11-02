@@ -2,24 +2,45 @@ package com.yet.spring.core;
 
 import java.util.Map;
 
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Service;
 
 import com.yet.spring.core.beans.Client;
 import com.yet.spring.core.beans.Event;
 import com.yet.spring.core.beans.EventType;
 import com.yet.spring.core.loggers.EventLogger;
+import com.yet.spring.core.spring.AppConfig;
+import com.yet.spring.core.spring.LoggerConfig;
 
+@Service
 public class App {
 
+    @Autowired
     private Client client;
 
+    @Resource(name="defaultLogger")
     private EventLogger defaultLogger;
 
+    @Resource(name="loggerMap")
     private Map<EventType, EventLogger> loggers;
     
+    public App() {}
+    
+    App(Client client, EventLogger defaultLogger, Map<EventType, EventLogger> loggersMap) {
+        this.client = client;
+        this.defaultLogger = defaultLogger;
+        this.loggers = loggersMap;
+    }
+
     public static void main(String[] args) {
-        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+        ctx.register(AppConfig.class, LoggerConfig.class);
+        ctx.scan("com.yet.spring.core");
+        ctx.refresh();
+        
         App app = (App) ctx.getBean("app");
         
         Client client = ctx.getBean(Client.class);
@@ -37,13 +58,6 @@ public class App {
         ctx.close();
     }
     
-    public App(Client client, EventLogger eventLogger, Map<EventType, EventLogger> loggers) {
-        super();
-        this.client = client;
-        this.defaultLogger = eventLogger;
-        this.loggers = loggers;
-    }
-
     private void logEvent(EventType eventType, Event event, String msg) {
         String message = msg.replaceAll(client.getId(), client.getFullName());
         event.setMsg(message);

@@ -25,7 +25,7 @@ public class TestApp {
 
     @Test
     public void testClientNameSubstitution() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        Client client = new Client("25", "Bob");
+        Client client = createClient();
         DummyLogger dummyLogger = new DummyLogger();
         
         App app = new App(client, dummyLogger, Collections.emptyMap());
@@ -41,9 +41,16 @@ public class TestApp {
         assertFalse(dummyLogger.getEvent().getMsg().contains(client.getFullName()));
     }
     
+    private Client createClient() {
+        Client client = new Client();
+        client.setId("25");
+        client.setFullName("Bob");
+        return client;
+    }
+    
     @Test
     public void testCorrectLoggerCall() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Client client = new Client("25", "Bob");
+        Client client = createClient();
         DummyLogger defaultLogger = new DummyLogger();
         DummyLogger infoLogger = new DummyLogger();
         
