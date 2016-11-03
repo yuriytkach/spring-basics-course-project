@@ -40,14 +40,10 @@
     </bean>
 
     <bean id="event" class="com.yet.spring.core.beans.Event" scope="prototype">
-        <constructor-arg>
-            <bean class="java.util.Date" />
-        </constructor-arg>
-        <constructor-arg ref="dateFormat" />
+        <constructor-arg value="#{new java.util.Date()}"/>
+        <constructor-arg value="#{T(java.text.DateFormat).getDateTimeInstance()}" />
     </bean>
 
-    <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance" />
-    
     <bean id="monitor" class="com.yet.spring.core.util.Monitor"/>
     <bean id="awared" class="com.yet.spring.core.util.AwareBean" init-method="init"/>
 
