@@ -1,6 +1,7 @@
 package com.yet.spring.core.loggers;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import com.yet.spring.core.beans.Event;
 
@@ -20,4 +21,8 @@ public class CombinedEventLogger extends AbstractLogger {
 		}
 	}
 
+    public Collection<EventLogger> getLoggers() {
+        return Collections.unmodifiableCollection(loggers);
+    }
+	
 }
