@@ -37,6 +37,10 @@
         <constructor-arg ref="client" />
         <constructor-arg ref="cacheFileEventLogger" />
         <constructor-arg ref="loggerMap"/>
+        
+        <property name="startupMessage" value="#{'Hello user ' +
+            ( systemProperties['os.arch'].equals('x86') ? 
+                systemEnvironment['USERNAME'] : systemEnvironment['USER'] ) }"/>
     </bean>
 
     <bean id="event" class="com.yet.spring.core.beans.Event" scope="prototype">

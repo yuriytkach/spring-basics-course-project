@@ -18,9 +18,13 @@ public class App {
 
     private Map<EventType, EventLogger> loggers;
     
+    private String startupMessage;
+    
     public static void main(String[] args) {
         ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         App app = (App) ctx.getBean("app");
+        
+        System.out.println(app.startupMessage);
         
         Client client = ctx.getBean(Client.class);
         System.out.println("Client says: " + client.getGreeting());
@@ -54,6 +58,10 @@ public class App {
         }
         
         logger.logEvent(event);
+    }
+
+    public void setStartupMessage(String startupMessage) {
+        this.startupMessage = startupMessage;
     }
 
 }
