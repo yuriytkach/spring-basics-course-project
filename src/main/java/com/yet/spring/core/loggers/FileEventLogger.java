@@ -7,9 +7,10 @@ import org.apache.commons.io.FileUtils;
 
 import com.yet.spring.core.beans.Event;
 
-public class FileEventLogger implements EventLogger {
+public class FileEventLogger extends AbstractLogger {
 	
 	private File file;
+	
 	private String filename;
 	
 	public FileEventLogger(String filename) {

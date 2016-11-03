@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import com.yet.spring.core.beans.Event;
 
-public class CombinedEventLogger implements EventLogger {
+public class CombinedEventLogger extends AbstractLogger {
 	
 	private final Collection<EventLogger> loggers;
 	
