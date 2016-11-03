@@ -35,12 +35,16 @@
 
     <bean id="app" class="com.yet.spring.core.App">
         <constructor-arg ref="client" />
-        <constructor-arg ref="cacheFileEventLogger" />
+        
+        <constructor-arg value="#{ T(com.yet.spring.core.beans.Event).isDay(8,17) ? 
+            cacheFileEventLogger : consoleEventLogger }" />
+        
         <constructor-arg ref="loggerMap"/>
         
         <property name="startupMessage" value="#{'Hello user ' +
             ( systemProperties['os.arch'].equals('x86') ? 
-                systemEnvironment['USERNAME'] : systemEnvironment['USER'] ) }"/>
+                systemEnvironment['USERNAME'] : systemEnvironment['USER'] ) + 
+                '. Default logger is ' + app.defaultLogger.name }"/>
     </bean>
 
     <bean id="event" class="com.yet.spring.core.beans.Event" scope="prototype">

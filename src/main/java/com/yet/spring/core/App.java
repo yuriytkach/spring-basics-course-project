@@ -64,4 +64,8 @@ public class App {
         this.startupMessage = startupMessage;
     }
 
+    public EventLogger getDefaultLogger() {
+        return defaultLogger;
+    }
+
 }
