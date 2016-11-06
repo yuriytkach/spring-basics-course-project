@@ -9,7 +9,9 @@
         http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
         http://www.springframework.org/schema/util
         http://www.springframework.org/schema/util/spring-util-3.2.xsd">
-
+        
+    <import resource="aspects.xml" />
+    
     <import resource="loggers.xml" />
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

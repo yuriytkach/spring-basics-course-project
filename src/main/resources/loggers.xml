@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:c="http://www.springframework.org/schema/c"
 	xsi:schemaLocation="
  		http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
@@ -11,27 +11,27 @@
         http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
 	<bean id="consoleEventLogger" class="com.yet.spring.core.loggers.ConsoleEventLogger"
-	       p:name="Console logger" />
+		p:name="Console logger" />
 
 	<bean id="fileEventLogger" class="com.yet.spring.core.loggers.FileEventLogger"
 		init-method="init" p:name="File logger">
-		<constructor-arg value="target/events_log.txt"/>
+		<constructor-arg value="target/events_log.txt" />
 	</bean>
-	
+
 	<bean id="cacheFileEventLogger" class="com.yet.spring.core.loggers.CacheFileEventLogger"
 		destroy-method="destroy" parent="fileEventLogger">
-		<constructor-arg index="1" value="5"/>
-		<property name="name" value="#{fileEventLogger.name + ' with cache'}"/>
+		<constructor-arg index="1" value="5" />
+		<property name="name" value="#{fileEventLogger.name + ' with cache'}" />
 	</bean>
-	
+
+	<util:list id="combinedLoggersList">
+		<ref bean="consoleEventLogger" />
+		<ref bean="fileEventLogger" />
+	</util:list>
+
 	<bean id="combinedEventLogger" class="com.yet.spring.core.loggers.CombinedEventLogger">
-        <constructor-arg>
-            <list>
-                <ref bean="consoleEventLogger"/>
-                <ref bean="fileEventLogger"/>
-            </list>
-        </constructor-arg>
-        <property name="name" value="#{'Combined ' + combinedEventLogger.loggers.![name].toString()}"/>
-    </bean>
-    
+		<constructor-arg ref="combinedLoggersList"/>
+		<property name="name" value="#{'Combined + combinedLoggersList.![name].toString()'}" />
+	</bean>
+
 </beans>
