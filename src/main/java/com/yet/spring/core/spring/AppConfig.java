@@ -1,8 +1,5 @@
 package com.yet.spring.core.spring;
 
-import java.text.DateFormat;
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,16 +14,6 @@ public class AppConfig {
 
     @Autowired
     private Environment environment;
-
-    @Bean
-    public Date newDate() {
-        return new Date();
-    }
-
-    @Bean
-    public DateFormat dateFormat() {
-        return DateFormat.getDateTimeInstance();
-    }
 
     @Bean
     public Client client() {

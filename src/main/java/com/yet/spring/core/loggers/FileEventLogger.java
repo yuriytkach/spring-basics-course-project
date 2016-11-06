@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import com.yet.spring.core.beans.Event;
 
 @Component
-public class FileEventLogger implements EventLogger {
+public class FileEventLogger extends AbstractLogger {
 
     private File file;
 
@@ -44,6 +44,12 @@ public class FileEventLogger implements EventLogger {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    @Value("File logger")
+    @Override
+    protected void setName(String name) {
+        this.name = name;
     }
 
 }
