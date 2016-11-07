@@ -17,4 +17,6 @@
     
     <bean id="loggingAspect" class="com.yet.spring.core.aspects.LoggingAspect"/>
     
+    <bean id="statisticsAspect" class="com.yet.spring.core.aspects.StatisticsAspect"/>
+    
  </beans>
