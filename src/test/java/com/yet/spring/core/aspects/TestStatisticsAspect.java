@@ -1,6 +1,7 @@
 package com.yet.spring.core.aspects;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -31,7 +32,7 @@ public class TestStatisticsAspect {
         aspect.count(jp);
         aspect.count(jp);
         
-        verify(jp);
+        verify(jp, atMost(3)).getTarget();
         
         Map<Class<?>, Integer> counters = aspect.getCounter();
         assertEquals(2, counters.size());
