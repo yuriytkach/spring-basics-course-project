@@ -19,4 +19,24 @@
     
     <bean id="statisticsAspect" class="com.yet.spring.core.aspects.StatisticsAspect"/>
     
+    <!-- Example of how to define aspect using XML -->
+    
+    <bean id="consoleLoggerLimitAspect" class="com.yet.spring.core.aspects.ConsoleLoggerLimitAspect">
+        <constructor-arg value="${console.logger.max:2}"/> <!-- take value from properties, if not found, then default is 2 -->
+        <constructor-arg ref="fileEventLogger"/>
+    </bean>
+
+    <aop:config>
+        <aop:aspect id="consoleLimitAspect" ref="consoleLoggerLimitAspect">
+            
+            <aop:pointcut id="consoleLogging"
+                expression="execution(* *.logEvent(com.yet.spring.core.beans.Event))
+                &amp;&amp; within(com.yet.spring.core.loggers.ConsoleEventLogger)
+                &amp;&amp; args(evt)" />
+            
+            <aop:around pointcut-ref="consoleLogging" method="aroundLogEvent" arg-names="evt" />
+        </aop:aspect>
+
+</aop:config>
+    
  </beans>
