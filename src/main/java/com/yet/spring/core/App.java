@@ -1,6 +1,7 @@
 package com.yet.spring.core;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
+import com.yet.spring.core.aspects.StatisticsAspect;
 import com.yet.spring.core.beans.Client;
 import com.yet.spring.core.beans.Event;
 import com.yet.spring.core.beans.EventType;
@@ -34,6 +36,9 @@ public class App {
             + "systemEnvironment['USERNAME'] : systemEnvironment['USER'] ) + "
             + "'. Default logger is ' + app.defaultLogger.name }")
     private String startupMessage;
+    
+    @Autowired
+    private StatisticsAspect statisticsAspect;
 
     public App() {
     }
@@ -60,12 +65,20 @@ public class App {
 
         Event event = ctx.getBean(Event.class);
         app.logEvent(EventType.INFO, event, "Some event for 1");
+        
+        event = ctx.getBean(Event.class);
+        app.logEvent(EventType.INFO, event, "One more event for 1");
+        
+        event = ctx.getBean(Event.class);
+        app.logEvent(EventType.INFO, event, "And one more event for 1");
 
         event = ctx.getBean(Event.class);
         app.logEvent(EventType.ERROR, event, "Some event for 2");
 
         event = ctx.getBean(Event.class);
         app.logEvent(null, event, "Some event for 3");
+        
+        app.outputLoggingCounter();
 
         ctx.close();
     }
@@ -80,6 +93,15 @@ public class App {
         }
 
         logger.logEvent(event);
+    }
+    
+    private void outputLoggingCounter() {
+        if (statisticsAspect != null) {
+            System.out.println("Loggers statistics. Number of calls: ");
+            for (Entry<Class<?>, Integer> entry: statisticsAspect.getCounter().entrySet()) {
+                System.out.println("    " + entry.getKey().getSimpleName() + ": " + entry.getValue());
+            }
+        }
     }
     
     public EventLogger getDefaultLogger() {
