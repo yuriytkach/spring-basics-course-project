@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -14,11 +15,17 @@ import com.yet.spring.core.beans.Client;
 import com.yet.spring.core.loggers.EventLogger;
 
 public class TestContext {
+    
+    @BeforeClass
+    public static void initTestDbProps() {
+        System.setProperty("DB_PROPS", "classpath:db_for_test.properties");
+    }
 
 	@Test
 	public void testPropertyPlaceholderSystemOverride() {
 		System.setProperty("id", "35");
-		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml", 
+		        "loggers.xml", "aspects.xml", "db.xml");
 		Client client = ctx.getBean(Client.class);
 		ctx.close();
 		
@@ -27,7 +34,8 @@ public class TestContext {
 	
 	@Test
 	public void testLoggersNames() {
-	    ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+	    ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml", 
+                "loggers.xml", "aspects.xml", "db.xml");
 	    
 	    EventLogger fileLogger = ctx.getBean("fileEventLogger", EventLogger.class);
 	    EventLogger cacheLogger = ctx.getBean("cacheFileEventLogger", EventLogger.class);
