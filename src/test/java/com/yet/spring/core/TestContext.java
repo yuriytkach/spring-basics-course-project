@@ -25,7 +25,7 @@ public class TestContext {
 	public void testPropertyPlaceholderSystemOverride() {
 		System.setProperty("id", "35");
 		ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml", 
-		        "loggers.xml", "aspects.xml", "db.xml");
+		        "loggers.xml", "db.xml");
 		Client client = ctx.getBean(Client.class);
 		ctx.close();
 		
@@ -35,7 +35,7 @@ public class TestContext {
 	@Test
 	public void testLoggersNames() {
 	    ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml", 
-                "loggers.xml", "aspects.xml", "db.xml");
+                "loggers.xml", "db.xml");
 	    
 	    EventLogger fileLogger = ctx.getBean("fileEventLogger", EventLogger.class);
 	    EventLogger cacheLogger = ctx.getBean("cacheFileEventLogger", EventLogger.class);

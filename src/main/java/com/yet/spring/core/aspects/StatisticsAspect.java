@@ -3,6 +3,7 @@ package com.yet.spring.core.aspects;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -11,7 +12,7 @@ import org.aspectj.lang.annotation.Pointcut;
 
 @Aspect
 public class StatisticsAspect {
-    
+
     private Map<Class<?>, Integer> counter = new HashMap<>();
 
     @Pointcut("execution(* *.logEvent(..))")
@@ -28,6 +29,14 @@ public class StatisticsAspect {
 
     public Map<Class<?>, Integer> getCounter() {
         return Collections.unmodifiableMap(counter);
+    }
+
+    @AfterReturning("execution(* com.yet.spring.core.App.logEvents(..))")
+    public void outputLoggingCounter() {
+        System.out.println("Loggers statistics. Number of calls: ");
+        for (Entry<Class<?>, Integer> entry : counter.entrySet()) {
+            System.out.println("    " + entry.getKey().getSimpleName() + ": " + entry.getValue());
+        }
     }
 
 }
