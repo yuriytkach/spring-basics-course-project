@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.yet.spring</groupId>
 	<artifactId>com.yet.spring.core</artifactId>
-	<version>0.12.1-SNAPSHOT</version>
+	<version>0.13.1-SNAPSHOT</version>
 	<name>Spring Basics Course Project</name>
 	<description>The project created throughout the course 'Spring Framework - The Basics'</description>
 
