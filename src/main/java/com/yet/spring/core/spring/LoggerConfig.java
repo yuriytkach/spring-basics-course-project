@@ -27,6 +27,9 @@ public class LoggerConfig {
 
     @Resource(name = "fileEventLogger")
     private EventLogger fileEventLogger;
+    
+    @Resource(name = "dbLogger")
+    private EventLogger dbLogger;
 
     @Resource(name = "combinedEventLogger")
     private EventLogger combinedEventLogger;
@@ -36,6 +39,7 @@ public class LoggerConfig {
         Collection<EventLogger> loggers = new ArrayList<EventLogger>(2);
         loggers.add(consoleEventLogger);
         loggers.add(fileEventLogger);
+        loggers.add(dbLogger);
         return loggers;
     }
 

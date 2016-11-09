@@ -1,53 +1,62 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.yet.spring</groupId>
-	<artifactId>com.yet.spring.core</artifactId>
-	<version>0.13.1-SNAPSHOT</version>
-	<name>Spring Basics Course Project</name>
-	<description>The project created throughout the course 'Spring Framework - The Basics'</description>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.yet.spring</groupId>
+    <artifactId>com.yet.spring.core</artifactId>
+    <version>0.13.1-SNAPSHOT</version>
+    <name>Spring Basics Course Project</name>
+    <description>The project created throughout the course 'Spring Framework - The Basics'</description>
 
-	<properties>
-		<spring.version>3.2.13.RELEASE</spring.version>
-		<junit.version>4.12</junit.version>
+    <properties>
+        <spring.version>3.2.13.RELEASE</spring.version>
+        <junit.version>4.12</junit.version>
         <mockito.version>2.2.12</mockito.version>
-		<commons.io.version>2.4</commons.io.version>
-        
+        <commons.io.version>2.4</commons.io.version>
+
         <aspectj.version>1.8.9</aspectj.version>
-        
+
+        <derby.version>10.13.1.1</derby.version>
+
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>${derby.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
         </dependency>
-		
-		<dependency>
+
+        <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons.io.version}</version>
@@ -59,16 +68,16 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-    
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
-        
-	</dependencies>
-    
+
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -88,8 +97,8 @@
         </plugins>
     </build>
 
-	<issueManagement>
-		<url>https://github.com/yuriytkach/spring-basics-course-project</url>
-		<system>Github</system>
-	</issueManagement>
+    <issueManagement>
+        <url>https://github.com/yuriytkach/spring-basics-course-project</url>
+        <system>Github</system>
+    </issueManagement>
 </project>

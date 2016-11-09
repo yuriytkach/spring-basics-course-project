@@ -10,6 +10,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -20,9 +21,15 @@ import com.yet.spring.core.loggers.CombinedEventLogger;
 import com.yet.spring.core.loggers.EventLogger;
 import com.yet.spring.core.loggers.FileEventLogger;
 import com.yet.spring.core.spring.AppConfig;
+import com.yet.spring.core.spring.DBConfig;
 import com.yet.spring.core.spring.LoggerConfig;
 
 public class TestContext {
+    
+    @BeforeClass
+    public static void initTestDbProps() {
+        System.setProperty("DB_PROPS", "classpath:db_for_test.properties");
+    }
 
     @Test
     public void testPropertyPlaceholderSystemOverride() {
@@ -56,7 +63,7 @@ public class TestContext {
         System.setProperty("events.file", file.getAbsolutePath());
 
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-        ctx.register(LoggerConfig.class);
+        ctx.register(LoggerConfig.class, DBConfig.class);
         ctx.scan(FileEventLogger.class.getPackage().getName());
         ctx.refresh();
 
@@ -76,7 +83,7 @@ public class TestContext {
     @Test
     public void testLoggersNames() {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-        ctx.register(LoggerConfig.class);
+        ctx.register(LoggerConfig.class, DBConfig.class);
         ctx.scan(FileEventLogger.class.getPackage().getName());
         ctx.refresh();
         

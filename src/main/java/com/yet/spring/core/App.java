@@ -1,21 +1,21 @@
 package com.yet.spring.core;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
-import com.yet.spring.core.aspects.StatisticsAspect;
 import com.yet.spring.core.beans.Client;
 import com.yet.spring.core.beans.Event;
 import com.yet.spring.core.beans.EventType;
 import com.yet.spring.core.loggers.EventLogger;
 import com.yet.spring.core.spring.AppConfig;
+import com.yet.spring.core.spring.DBConfig;
 import com.yet.spring.core.spring.LoggerConfig;
 
 @Service
@@ -37,9 +37,6 @@ public class App {
             + "'. Default logger is ' + app.defaultLogger.name }")
     private String startupMessage;
     
-    @Autowired
-    private StatisticsAspect statisticsAspect;
-
     public App() {
     }
 
@@ -52,7 +49,7 @@ public class App {
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-        ctx.register(AppConfig.class, LoggerConfig.class);
+        ctx.register(AppConfig.class, LoggerConfig.class, DBConfig.class);
         ctx.scan("com.yet.spring.core");
         ctx.refresh();
 
@@ -63,24 +60,26 @@ public class App {
         Client client = ctx.getBean(Client.class);
         System.out.println("Client says: " + client.getGreeting());
 
-        Event event = ctx.getBean(Event.class);
-        app.logEvent(EventType.INFO, event, "Some event for 1");
+        app.logEvents(ctx);
         
-        event = ctx.getBean(Event.class);
-        app.logEvent(EventType.INFO, event, "One more event for 1");
-        
-        event = ctx.getBean(Event.class);
-        app.logEvent(EventType.INFO, event, "And one more event for 1");
-
-        event = ctx.getBean(Event.class);
-        app.logEvent(EventType.ERROR, event, "Some event for 2");
-
-        event = ctx.getBean(Event.class);
-        app.logEvent(null, event, "Some event for 3");
-        
-        app.outputLoggingCounter();
-
         ctx.close();
+    }
+
+    public void logEvents(ApplicationContext ctx) {
+        Event event = ctx.getBean(Event.class);
+        logEvent(EventType.INFO, event, "Some event for 1");
+        
+        event = ctx.getBean(Event.class);
+        logEvent(EventType.INFO, event, "One more event for 1");
+        
+        event = ctx.getBean(Event.class);
+        logEvent(EventType.INFO, event, "And one more event for 1");
+
+        event = ctx.getBean(Event.class);
+        logEvent(EventType.ERROR, event, "Some event for 2");
+
+        event = ctx.getBean(Event.class);
+        logEvent(null, event, "Some event for 3");
     }
 
     private void logEvent(EventType eventType, Event event, String msg) {
@@ -93,15 +92,6 @@ public class App {
         }
 
         logger.logEvent(event);
-    }
-    
-    private void outputLoggingCounter() {
-        if (statisticsAspect != null) {
-            System.out.println("Loggers statistics. Number of calls: ");
-            for (Entry<Class<?>, Integer> entry: statisticsAspect.getCounter().entrySet()) {
-                System.out.println("    " + entry.getKey().getSimpleName() + ": " + entry.getValue());
-            }
-        }
     }
     
     public EventLogger getDefaultLogger() {
