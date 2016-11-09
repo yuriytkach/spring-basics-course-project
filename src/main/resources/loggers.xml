@@ -27,11 +27,18 @@
 	<util:list id="combinedLoggersList">
 		<ref bean="consoleEventLogger" />
 		<ref bean="fileEventLogger" />
+        <ref bean="dbLogger"/>
 	</util:list>
 
 	<bean id="combinedEventLogger" class="com.yet.spring.core.loggers.CombinedEventLogger">
 		<constructor-arg ref="combinedLoggersList"/>
 		<property name="name" value="#{'Combined ' + combinedLoggersList.![name].toString()}" />
 	</bean>
+    
+    <bean id="dbLogger" class="com.yet.spring.core.loggers.DBLogger" 
+        init-method="init" destroy-method="destroy">
+        <constructor-arg ref="jdbcTemplate"/>
+        <constructor-arg value="${jdbc.username}"/>
+    </bean>
 
 </beans>
