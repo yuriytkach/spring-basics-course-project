@@ -1,0 +1,3 @@
+test:
+  override:
+    - mvn -P circleci integration-test
