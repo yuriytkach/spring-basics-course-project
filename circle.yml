@@ -1,3 +1,6 @@
 test:
   override:
     - mvn -DrepoToken=${repoToken} -P circleci integration-test jacoco:report coveralls:report
+  post:
+      - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+      - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
