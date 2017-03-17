@@ -1,3 +1,3 @@
 test:
   override:
-    - mvn -P circleci integration-test jacoco:report coveralls:report
+    - mvn -DrepoToken=${repoToken} -P circleci integration-test jacoco:report coveralls:report
