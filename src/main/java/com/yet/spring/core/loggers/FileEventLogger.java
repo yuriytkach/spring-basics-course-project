@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 import com.yet.spring.core.beans.Event;
+import org.jetbrains.annotations.NotNull;
 
 public class FileEventLogger extends AbstractLogger {
 	
@@ -27,9 +28,9 @@ public class FileEventLogger extends AbstractLogger {
 	}
 
 	@Override
-	public void logEvent(Event event) {
+	public void logEvent(@NotNull Event event) {
 		try {
-			FileUtils.writeStringToFile(file, event.toString() + "\n", true);
+			FileUtils.writeStringToFile(file, event.toString() + "\n", false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

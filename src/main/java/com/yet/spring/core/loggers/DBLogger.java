@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,7 +14,6 @@ import org.springframework.jdbc.core.RowMapper;
 import com.yet.spring.core.beans.Event;
 
 public class DBLogger extends AbstractLogger {
-
     private static final String SQL_ERROR_STATE_SCHEMA_EXISTS = "X0Y68";
     private static final String SQL_ERROR_STATE_TABLE_EXISTS = "X0Y32";
 
@@ -22,7 +22,7 @@ public class DBLogger extends AbstractLogger {
 
     public DBLogger(JdbcTemplate jdbcTemplate, String schema) {
         this.jdbcTemplate = jdbcTemplate;
-        this.schema = schema.toUpperCase();
+        this.schema = schema;
     }
 
     public void init() {
@@ -45,7 +45,7 @@ public class DBLogger extends AbstractLogger {
 
     private void createDBSchema() {
         try {
-            jdbcTemplate.update("CREATE SCHEMA " + schema);
+            jdbcTemplate.update("CREATE SCHEMA if not exists " + schema);
         } catch (DataAccessException e) {
             Throwable causeException = e.getCause();
             if (causeException instanceof SQLException) {
@@ -63,7 +63,7 @@ public class DBLogger extends AbstractLogger {
 
     private void createTableIfNotExists() {
         try {
-            jdbcTemplate.update("CREATE TABLE t_event (" + "id INT NOT NULL PRIMARY KEY," + "date TIMESTAMP,"
+            jdbcTemplate.update("CREATE TABLE if not exists t_event (" + "id INT NOT NULL PRIMARY KEY," + "date TIMESTAMP,"
                     + "msg VARCHAR(255)" + ")");
 
             System.out.println("Created table t_event");
@@ -94,7 +94,7 @@ public class DBLogger extends AbstractLogger {
     }
 
     @Override
-    public void logEvent(Event event) {
+    public void logEvent(@NotNull Event event) {
         jdbcTemplate.update("INSERT INTO t_event (id, date, msg) VALUES (?,?,?)", event.getId(), event.getDate(),
                 event.toString());
         System.out.println("Saved to DB event with id " + event.getId());

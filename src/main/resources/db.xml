@@ -19,7 +19,7 @@
     <bean id="dbLogger" class="com.yet.spring.core.loggers.DBLogger" 
         init-method="init" destroy-method="destroy">
         <constructor-arg ref="jdbcTemplate"/>
-        <constructor-arg value="${jdbc.username}"/>
+        <constructor-arg value="${jdbc.db_name}"/>
     </bean>
         
 </beans>
