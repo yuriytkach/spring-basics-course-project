@@ -2,6 +2,7 @@ package com.yet.spring.core;
 
 import java.util.Map;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -36,7 +37,7 @@ public class App {
         ctx.close();
     }
     
-    public void logEvents(ApplicationContext ctx) {
+    public void logEvents(@NotNull ApplicationContext ctx) {
         Event event = ctx.getBean(Event.class);
         logEvent(EventType.INFO, event, "Some event for 1");
         
@@ -50,7 +51,7 @@ public class App {
         logEvent(EventType.ERROR, event, "Some event for 2");
         
         event = ctx.getBean(Event.class);
-        logEvent(null, event, "Some event for 3");
+        logEvent(EventType.WARNING, event, "Some event for 3");
     }
     
     public App() {}
@@ -62,7 +63,7 @@ public class App {
         this.loggers = loggers;
     }
 
-    private void logEvent(EventType eventType, Event event, String msg) {
+    private void logEvent(EventType eventType, @NotNull Event event, @NotNull String msg) {
         String message = msg.replaceAll(client.getId(), client.getFullName());
         event.setMsg(message);
         

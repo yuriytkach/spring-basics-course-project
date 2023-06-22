@@ -28,6 +28,8 @@
     <util:map id="loggerMap">
         <entry key="INFO" value-ref="consoleEventLogger" />
         <entry key="ERROR" value-ref="combinedEventLogger" />
+        <entry key="DEBUG" value-ref="consoleEventLogger" />
+        <entry key="WARNING" value-ref="combinedEventLogger" />
     </util:map>
 
     <bean id="app" class="com.yet.spring.core.App">
